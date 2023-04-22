@@ -1,0 +1,41 @@
+formats:
+  Signed: 1
+  Unsigned: 1
+  Hex - ASCII: 1
+  Binary: 1
+  Long AB CD: 2
+  Long CD AB: 2
+  Long BA DC: 2
+  Long DC BA: 2
+  Float AB CD: 2
+  Float CD AB: 2
+  Float BA DC: 2
+  Float DC BA: 2
+  Double AB CD EF GH: 4
+  Double GH EF CD AB: 4
+  Double BA DC FE HG: 4
+  Double HG FE DC BA: 4
+functions:
+  01 Read Coils: 1
+  02 Read Discrete Inputs: 2
+  03 Read Holding Registers: 3
+  04 Read Input Registers: 4
+serial parameters:
+  Baud:
+    - '9600'
+    - '14400'
+    - '19200'
+    - '38400'
+    - '56000'
+    - '57600'
+    - '115200'
+  Bits:
+    - 7 Data bits
+    - 8 Data bits
+  Parity:
+    - None Parity
+    - Odd Parity
+    - Even Parity
+  Stop:
+    - 1 Stop Bit
+    - 2 Stop Bits

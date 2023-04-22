@@ -1,0 +1,132 @@
+devices:
+  d3d8ab61-dd24-57b6-947c-b3a22513823e:
+    active: true
+    address: 1
+    interface: COM2
+    ip: null
+    name: Matrix test
+    protocol: Modbus RTU
+    registers:
+      01 Read Coils: {}
+      02 Read Discrete Inputs: {}
+      03 Read Holding Registers: {}
+      04 Read Input Registers:
+        '1':
+          active: true
+          adjustments:
+          - '-': '10'
+          - '-': '2'
+          code: TST1
+          format: Signed
+          id: 20f9f032-d250-4264-a1e2-bd1c9d9d2944
+          name: Test1
+        '3':
+          active: true
+          adjustments: []
+          code: TST3
+          format: Signed
+          id: d340a7ac-a6a5-4aa9-b9f4-fa4df9022fa2
+          name: Test3
+        '4':
+          active: true
+          adjustments: []
+          code: TST4
+          format: Signed
+          id: 9e5e8e2b-bfbb-421d-9060-fd0021cddca6
+          name: Test4
+        '5':
+          active: true
+          adjustments:
+          - +: '1000'
+          code: TST5
+          format: Signed
+          id: 2a265570-0d0f-4411-b88e-b4f5ea5b9173
+          name: Test5
+        '9':
+          active: false
+          adjustments:
+          - /: '1'
+          - +: '1'
+          - ^: '1'
+          code: TST2
+          format: Signed
+          id: 6efcbe4e-270c-49f5-9931-1643f4aede03
+          name: Test2
+  fab33655-d9e8-56fb-a863-4550d349ef21:
+    active: true
+    address: 1
+    interface: null
+    ip: 127.0.0.1
+    name: MBus Tools test
+    protocol: Modbus TCP
+    registers:
+      01 Read Coils:
+        '0':
+          active: true
+          adjustments:
+          - '0': 'No'
+          - '1': 'Yes'
+          code: TCP0
+          format: Signed
+          id: 8182d55d-3531-4594-b430-a643d8f3bc4c
+          name: Test0
+        '1':
+          active: true
+          adjustments:
+          - '0': Loose
+          - '1': Win
+          code: TCP1
+          format: Signed
+          id: e8ba24af-befe-4a10-8cee-45a78c5f82ca
+          name: Test1
+        '2':
+          active: true
+          adjustments:
+          - '0': Bad
+          - '1': Good
+          code: TCP2
+          format: Signed
+          id: 8bdff90a-94bc-494f-b549-62fcf9f0229e
+          name: Test2
+      02 Read Discrete Inputs: {}
+      03 Read Holding Registers:
+        '1':
+          active: true
+          adjustments:
+          - '*': '0.1'
+          - +: '1515'
+          code: AO1
+          format: Signed
+          id: a8de1088-ab06-413f-a31f-e72c0a65d7b4
+          name: AO1 <<<---
+        '2':
+          active: true
+          adjustments: []
+          code: AO2
+          format: Float AB CD
+          id: dc697657-fee1-4243-a762-fdb9d2f6b9f8
+          name: Test AO2
+        '4':
+          active: true
+          adjustments: []
+          code: AO4
+          format: Double AB CD EF GH
+          id: 5e9adbec-ec7d-4a34-bff2-c1f1cb2cca9e
+          name: AO4
+      04 Read Input Registers:
+        '0':
+          active: true
+          adjustments:
+          - '*': '.1'
+          - +: '515'
+          code: AI0
+          format: Signed
+          id: 37911a2d-6c54-4c69-bdcd-141a4de60fa3
+          name: AI0
+network:
+  serial:
+    COM2:
+      baud: '19200'
+      bits: 8 Data bits
+      parity: None Parity
+      stop: 1 Stop Bit
