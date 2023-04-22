@@ -233,6 +233,8 @@ class Widget(QWidget, LoadUiMixin):
         self.dmn.is_polling = self.ui.start_poll_btn.isChecked()
         if self.dmn.is_polling:
             filename = datetime.now().strftime('%Y%m%d_%H%M%S.%f.csv')
+            if not os.path.isdir(os.fspath(Path(__file__).parents[2] / 'data')):
+                os.mkdir(os.fspath(Path(__file__).parents[2] / 'data'))
             self.dmn.data_file: str = os.fspath(Path(__file__).parents[2] / 'data' / filename)
             self._init_pollers()
             self.ui.start_poll_btn.setText('Стоп')
@@ -297,12 +299,6 @@ class Widget(QWidget, LoadUiMixin):
             worker.poller = poller
             worker.signals.result.connect(self.worker_exec)
             self.dmn.workers[guid] = worker
-
-        # print('Запускаем MemWorker...')
-        # mem_worker = MemWorker(fn=self.polling)
-        # mem_worker.signals.result.connect(self.mem_worker_res)
-        # mem_worker.signals.finished.connect(self.mem_worker_fin)
-        # self.dmn.workers['MemWorker'] = mem_worker
 
     def _kill_pollers(self) -> None:
         """
