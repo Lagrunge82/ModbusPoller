@@ -13,16 +13,14 @@ __date__ = "2023-04-22"
 __version__ = "1.0"
 __license__ = "MIT License"
 
-import time
+
 from datetime import datetime
 from typing import Callable, Dict, List, Optional
 
-# import memory_profiler
-from PySide6.QtCore import QThread, QObject, Signal, Slot, QRunnable, Property
-# from guppy import hpy
-# import tracemalloc
+from PySide6.QtCore import QThread, QObject, Signal, Slot, QRunnable
 
 from utils.modbus import Poller
+
 
 class WorkerSignals(QObject):
     """
@@ -148,7 +146,7 @@ class PollingWorker(Worker):
     def writeRegisters(self, address: int, 
                        data_format: str, 
                        adj: List, 
-                       value: str) -> None:
+                       value: str) -> bool:
         """
         Writes one or more 16-bit registers to the specified address using the associated Poller 
         object.
@@ -161,14 +159,16 @@ class PollingWorker(Worker):
         :type adj: List
         :param value: The value or values to write to the registers, as a string.
         :type value: str
-        :return: A ModbusResponse object indicating the success or failure of the write operation.
-        :rtype: ModbusResponse
+        :return: True if success and False otherwise
+        :rtype: bool
         """
         encoded_value = self._poller.encode_value(value=value, 
                                                   data_format=data_format, 
                                                   adjustments=adj)
         if encoded_value is not None:
             self._poller.writeRegisters(address=address, value=encoded_value)
+            return True
+        return False
 
     @Slot()
     def run(self):
@@ -177,10 +177,6 @@ class PollingWorker(Worker):
             started_at = datetime.now()
             result: Dict = {'guid': self.guid,
                             'registers': self._poller.registers}
-            # result: Dict = {'guid': self.guid,
-            #                 'registers': [['0', '0', '0', '0', '0', '0', '0', '0', '0', True, '0', '0'],
-            #                               ['0', '0', '0', '0', '0', '0', '0', '0', '0', True, '0', '0'],
-            #                               ['0', '0', '0', '0', '0', '0', '0', '0', '0', True, '0', '0'], ]}
             self.signals.result.emit(result)
             self._exec_time = int(((datetime.now() - started_at).total_seconds()) * 1000)
             super().run()

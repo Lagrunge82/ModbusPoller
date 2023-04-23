@@ -68,8 +68,8 @@ class Daemon:
     :ivar workers_data: A dictionary storing data retrieved from worker
     :ivar table_data: A dictionary that stores data to put in a table
     :ivar onPollingDisabled: A list of controls to disable when polling is started
-
     """
+    # pylint: disable=too-few-public-methods, too-many-instance-attributes
     def __init__(self) -> None:
         self.threadpool = QThreadPool()
         print(f"Multithreading with maximum {self.threadpool.maxThreadCount()} threads")
@@ -131,10 +131,10 @@ class Widget(QWidget, LoadUiMixin):
                                       self.ui.addRegister,
                                       self.ui.changeRegister,
                                       self.ui.deleteRegister, ]
-        self.timer = QTimer()
-        self.timer.setInterval(1000)
-        self.timer.timeout.connect(self.daemon_fn)
-        self.timer.start()
+        timer = QTimer()
+        timer.setInterval(1000)
+        timer.timeout.connect(self.daemon_fn)
+        timer.start()
 
     def configure_main_tab(self):
         """
@@ -494,9 +494,10 @@ class Widget(QWidget, LoadUiMixin):
                                                            data_format=value_format,
                                                            adj=register['adjustments'],
                                                            value=text)
-                if result is None:
+                if result is False:
                     msgBox_fn(text='Введён некорректный формат данных.',
-                              title='Ошибка формата данных', buttons=QMessageBox.Ok)
+                              title='Ошибка формата данных',
+                              buttons=QMessageBox.Ok)
     
     def data_tb_open_chart(self) -> None:
         """
