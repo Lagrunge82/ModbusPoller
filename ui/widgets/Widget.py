@@ -131,10 +131,10 @@ class Widget(QWidget, LoadUiMixin):
                                       self.ui.addRegister,
                                       self.ui.changeRegister,
                                       self.ui.deleteRegister, ]
-        timer = QTimer()
-        timer.setInterval(1000)
-        timer.timeout.connect(self.daemon_fn)
-        timer.start()
+        self.timer = QTimer()
+        self.timer.setInterval(1000)
+        self.timer.timeout.connect(self.daemon_fn)
+        self.timer.start()
 
     def configure_main_tab(self):
         """
